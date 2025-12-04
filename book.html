@@ -2,25 +2,68 @@
 <html>
     <head>
         <meta charset="utf-8"></meta>
-        <title>Meowdani Cat Cafe</title>
+        <title>Meet Your Perfect Cat</title>
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Rock+Salt&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="styles.css">
     </head>
 
     <body>
-        <header>
-            <h1>Book A Slot To Visit :3</h1>
+        <header class="main-header">
+            <div class="logo-title">
+                <h1 class="site-title">Meowdani</h1>
+                <p class="site-tagline">Cat Cafe</p>
+            </div>
+
+            <nav class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="book.html">Meet Your Perfect Cat</a>
+                <a href="game.html">Game Center</a>
+                <a href="menu.html">Menu</a>
+                <a href="merch.html">Merch</a>
+            </nav>
+
+            <a href="#auth-section" class="btn btn-outline login-top">Login</a>
         </header>
 
-        <nav>
+        <main id="main-content">
+            <!-- Hero section -->
+            <section class="auth-forms">
+                <form class="auth-form" action="#" method="post">
+                        <h3 class="hero-title" style="text-align: center">Book a time with your purrfect companion!</h2>
+                        <p style="text-align: center">Our cats are ready to find their forever homes! Request a time to come meet one of our cats!</p>
 
-        </nav> 
+                        <label for="reg-name">Full Name</label>
+                        <input type="text" id="reg-name" name="reg-name" required>
 
-        <main>
+                        <label for="reg-email">Email</label>
+                        <input type="email" id="reg-email" name="reg-email" required>
 
+                        <label for="date-time">Date and time:</label>
+                        <input type="datetime-local" id="date-time" name="date-time">
+
+                        <button type="submit" class="btn btn-outline form-btn">Submit Appointment Request</button>
+                    </form>
+                <div class="hero-image">
+                    <img src="img/homepage-cats.png" alt="Cats relaxing at Meowdani Cat Cafe">
+                </div>
+
+                <p class="hero-subtitle">
+                    Welcome to Meowdani, a cozy cat cafe where you can relax, study,
+                    and spend quality time with our adoptable feline friends.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="book.html" class="btn btn-primary">Book Cat Time</a>
+                    <a href="game.html" class="btn btn-ghost">Play the Mini Game</a>
+                </div>
+            </section>
         </main>
 
-        <footer>
-
+        <footer class="site-footer">
+            <p>© 2025 Meowdani Cat Cafe. Made with love and cat hair.</p>
         </footer>
     </body>
 
