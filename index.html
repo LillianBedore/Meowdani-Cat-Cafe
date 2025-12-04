@@ -1,39 +1,137 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8"></meta>
+        <meta charset="utf-8">
         <title>Meowdani Cat Cafe</title>
+
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Rock+Salt&display=swap" rel="stylesheet">
+
         <link rel="stylesheet" href="styles.css">
     </head>
 
     <body>
-        <header>
-            <h1>Meowdani Cat Cafe</h1>
+        <!-- Top bar with logo, nav, and login button -->
+        <header class="main-header">
+            <div class="logo-title">
+                <h1 class="site-title">Meowdani</h1>
+                <p class="site-tagline">Cat Cafe</p>
+            </div>
+
+            <nav class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="book.html">Meet Your Perfect Cat</a>
+                <a href="game.html">Game Center</a>
+                <a href="menu.html">Menu</a>
+                <a href="merch.html">Merch</a>
+            </nav>
+
+            <a href="#auth-section" class="btn btn-outline login-top">Login</a>
         </header>
 
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="book.html">Meet Your Perfect Cat</a>
-            <a href="game.html">Game Center</a>
-            <a href="menu.html">Menu</a>
-        </nav> 
-
         <main id="main-content">
-            <div id="one">
-                <p>Hi there!!!!!</p>
-            </div>
+            <!-- Hero section -->
+            <section class="hero">
+                <div class="hero-text">
+                    <h2 class="hero-title">Find your purr-fect companion!</h2>
+                    <p class="hero-subtitle">
+                        Welcome to Meowdani, a cozy cat cafe where you can relax, study,
+                        and spend quality time with our adoptable feline friends.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="book.html" class="btn btn-primary">Book Cat Time</a>
+                        <a href="game.html" class="btn btn-ghost">Play the Mini Game</a>
+                    </div>
+                </div>
 
-            <div id="two">
+                <div class="hero-image">
+                    <img src="img/homepage-cats.png" alt="Cats relaxing at Meowdani Cat Cafe">
+                </div>
+            </section>
 
-            </div>
+            <!-- Quick info cards -->
+            <section class="info-section">
+                <h2 class="section-title">Explore Meowdani</h2>
+                <p class="section-intro">
+                    Whether you’re here to meet cats, grab a latte, or play a game,
+                    we’ve got something for every cat lover.
+                </p>
 
-            <div id="three">
-            </div>
+                <div class="info-grid">
+                    <article class="info-card">
+                        <h3>Meet Your Perfect Cat</h3>
+                        <p>
+                            Browse our cat profiles, pick a time slot, and reserve a cozy corner
+                            to hang out with your new furry friend.
+                        </p>
+                        <a href="book.html" class="card-link">Start matching →</a>
+                    </article>
+
+                    <article class="info-card">
+                        <h3>Game Center</h3>
+                        <p>
+                            Take a break with our Meowdani mini game while you wait for your
+                            session or sip your drink.
+                        </p>
+                        <a href="game.html" class="card-link">Play now →</a>
+                    </article>
+
+                    <article class="info-card">
+                        <h3>Cafe Menu & Merch</h3>
+                        <p>
+                            Try our drinks & snacks, then bring home a piece of Meowdani with
+                            tote bags, stickers, and more.
+                        </p>
+                        <a href="menu.html" class="card-link">View menu & merch →</a>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Login & Registration -->
+            <section id="auth-section" class="auth-section">
+                <h2 class="section-title">Login or Join the Cat Club</h2>
+                <p class="section-intro">
+                    Log in to manage your bookings, or create a free account to start
+                    scheduling cuddle time with our cats.
+                </p>
+
+                <div class="auth-forms">
+                    <!-- Login form -->
+                    <form class="auth-form" action="#" method="post">
+                        <h3>Login</h3>
+
+                        <label for="login-email">Email / Username</label>
+                        <input type="email" id="login-email" name="login-email" required>
+
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" name="login-password" required>
+
+                        <button type="submit" class="btn btn-primary form-btn">Login</button>
+                    </form>
+
+                    <!-- Registration form -->
+                    <form class="auth-form" action="#" method="post">
+                        <h3>Register</h3>
+
+                        <label for="reg-name">Full Name</label>
+                        <input type="text" id="reg-name" name="reg-name" required>
+
+                        <label for="reg-email">Email / Username</label>
+                        <input type="email" id="reg-email" name="reg-email" required>
+
+                        <label for="reg-password">Password</label>
+                        <input type="password" id="reg-password" name="reg-password" required>
+
+                        <button type="submit" class="btn btn-outline form-btn">Create Account</button>
+                    </form>
+                </div>
+            </section>
         </main>
 
-        <footer>
-
+        <footer class="site-footer">
+            <p>© 2025 Meowdani Cat Cafe. Made with love and cat hair.</p>
         </footer>
     </body>
-
 </html>
