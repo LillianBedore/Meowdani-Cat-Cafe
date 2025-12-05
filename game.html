@@ -31,16 +31,19 @@
     
     <main id="game-hero">
 
+      <img class="paw-left" src="img/left-paw.png" alt="">
+      <img class="paw-right" src="img/right-paw.png" alt="">
+
       <div id="center-content">
 
         <div id="game-center-screen" class="unhide">
           <h1>Game Center</h1>
-          <button class="btn btn-outline" id="memory-game-btn">purrfect memory game</button>
+          <button class="btn btn-outline" id="memory-game-btn"><em>Purr</em>fect Memory Game</button>
         </div>
       
         <div id="memory-game-screen" class="hide">
       
-          <h1>Memory Game</h1>
+          <h1><em>Purr</em>fect Memory Game</h1>
         
           <p>
             Difficulty:
@@ -50,13 +53,13 @@
               <option value="hard">hard (4x6)</option>
             </select>
           </p>
+
+          <button id="start-memory-game" class="btn btn-outline">Start Game</button>
+          <button id="return-game-center" class="btn btn-outline">Return to Game Center </button>
         
-          <p>Time: <span id="memory-time">0</span></p>
+          <p>Time: <span id="memory-time">0</span> seconds</p>
 
           <p id="game-stats">Best Time: <span id="high-score">--</span> seconds</p>
-        
-          <button id="start-memory-game" class="btn btn-outline">Start Game</button>
-          <button id="return-game-center" class="btn btn-outline">return to game center</button>
         
           <div id="memory-container"></div>
 
@@ -65,7 +68,7 @@
       </div>
 
       <!-- GAME OVER MODAL -->
-      <div id="gameover-modal">
+      <div id="gameover-modal" class="hide">
         <div id="gameover-content">
             <h2>Game Over!</h2>
             <p id="gameover-time"></p>
