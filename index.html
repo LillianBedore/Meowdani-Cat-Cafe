@@ -141,5 +141,28 @@
         <footer class="site-footer">
             <p>© 2025 Meowdani Cat Cafe. Made with love and cat hair.</p>
         </footer>
+
+        <!-- This is temp, just so the HTML form does something (delete once make PHP form next week) -->
+        <script>
+            const loginForm = document.getElementById("login-form");
+            const registerForm = document.getElementById("register-form");
+        
+            if (loginForm) {
+                loginForm.addEventListener("submit", function (event) {
+                    event.preventDefault();
+                    const email = document.getElementById("login-email").value;
+                    alert("Logged in as: " + email);
+                });
+            }
+        
+            if (registerForm) {
+                registerForm.addEventListener("submit", function (event) {
+                    event.preventDefault();
+                    const name = document.getElementById("reg-name").value;
+                    alert("Welcome to Meowdani, " + name + "!");
+                });
+            }
+</script>
+        
     </body>
 </html>
