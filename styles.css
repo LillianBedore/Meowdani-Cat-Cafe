@@ -656,6 +656,8 @@ h1, h2, h3 {
 
 #gameover-modal {
   backdrop-filter: blur(4px);
+  z-index: 9999;
+}
 }
 
 #gameover-content {
