@@ -568,3 +568,16 @@ h1, h2, h3 {
 .unhide{
     display: block;
 }
+
+#memory-container {
+  display: grid;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.memory-card {
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+}
+
