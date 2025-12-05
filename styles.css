@@ -595,6 +595,10 @@ h1, h2, h3 {
     box-shadow: 0 0 15px #00b894;
 }
 
+#game-hero button{
+    font-family: Arvo;
+}
+
 /*center internal content */
 #center-content {
   width: 100%;
