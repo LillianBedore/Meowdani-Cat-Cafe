@@ -31,34 +31,29 @@
         <main id="main-content">
             <section class="page-hero">
                 <h2>Meet The Cats</h2>
-            <div class="slideshow-container" style="width:500px,height:500px">
+            <div class="slideshow-container" style="width:500px,height:500px"> 
 
             <div class="mySlides fade">
-            <div class="numbertext">1 / 5</div>
             <img src="img/cat-1.png" style="width:100%">
             <div class="text">Caption Text</div>
             </div>
 
             <div class="mySlides fade">
-            <div class="numbertext">2 / 5</div>
             <img src="img/cat-2.png" style="width:100%">
             <div class="text">Caption Two</div>
             </div>
 
             <div class="mySlides fade">
-            <div class="numbertext">3 / 5</div>
             <img src="img/cat-3.png" style="width:100%">
             <div class="text">Caption Three</div>
             </div>
 
             <div class="mySlides fade">
-            <div class="numbertext">4 / 5</div>
             <img src="img/cat-4.png" style="width:100%">
             <div class="text">Caption Three</div>
             </div>
 
             <div class="mySlides fade">
-            <div class="numbertext">5 / 5</div>
             <img src="img/cat-5.png" style="width:100%">
             <div class="text">Caption Three</div>
             </div>
@@ -68,11 +63,14 @@
                 <span class="dot" onclick="currentSlide(2)"></span>
                 <span class="dot" onclick="currentSlide(3)"></span>
             </div>
+            </div>
             </section>
             <section class="auth-forms">
                 <form class="auth-form" action="#" method="post">
                         <h3 class="hero-title" style="text-align: center">Book a time with your purrfect companion!</h2>
                         <p style="text-align: center">Our cats are ready to find their forever homes! Request a time to come meet one of our cats!</p>
+                        <br>
+                        <p id="current-date" style="text-align: center"></p>
 
                         <label for="reg-name">Full Name</label>
                         <input type="text" id="reg-name" name="reg-name" required>
@@ -85,21 +83,30 @@
 
                         <label for="cat-name">What cat would you like to meet? If you want to meet multiple, hold down the the Ctrl (windows) / Command (Mac) button on your device.</label>
                         <select id="cats" name="cats" size="8" multiple>
-                              <option value="Mittens">Mittens</option>
-                              <option value="Sadie">Sadie</option>
-                              <option value="Arthur">Arthur</option>
-                              <option value="Lancelot">Lancelot</option>
-                              <option value="Dolly">Dolly</option>
-                              <option value="Henrietta">Henrietta</option>
-                              <option value="Joel">Joel</option>
-                              <option value="Sana">Sana</option>
+                              <option value="1">Mittens</option>
+                              <option value="1">Sadie</option>
+                              <option value="1">Arthur</option>
+                              <option value="1">Lancelot</option>
+                              <option value="1">Dolly</option>
+                              <option value="1">Henrietta</option>
+                              <option value="1">Joel</option>
+                              <option value="1">Sana</option>
                         </select>
 
                         <button type="submit" class="btn btn-outline form-btn">Submit Appointment Request</button>
                     </form>
 
-                <div class="hero-actions">
-                    <p>receipt!</p>
+                <div class="hero-actions" style="text-align: center">
+                   <div class="receipt" id="receipt">
+                    <!-- <div class="line"><span>Selected items subtotal:</span><span id="subtotal">$0.00</span></div> -->
+                    <!-- <div class="line"><span>Subtotal × 5: </span><span id="multiply-math">$0.00</span></div> -->
+
+                    <div class="totals line"><strong>Final total: </strong><strong id="final">$15.00</strong></div>
+
+                    <div style="margin-top:.6rem">
+                    <ul id="items-list" style="margin:.4rem 0 0 1.1rem; padding:0; list-style:disc"></ul>
+                    </div>
+                    </div>
                 </div>
             </section>
         </main>
@@ -109,23 +116,6 @@
         </footer>
     </body>
 
-    <script>
-        let slideIndex = 0;
-        showSlides(slideIndex);
-
-        showSlides();
-
-        function showSlides() {
-            let i;
-            let slides = document.getElementsByClassName("mySlides");
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            slideIndex++;
-            if (slideIndex > slides.length) {slideIndex = 1}
-                slides[slideIndex-1].style.display = "block";
-                setTimeout(showSlides, 2000);
-            }
-    </script>
+  <script src="book.js"></script>
 
 </html>
