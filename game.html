@@ -30,12 +30,30 @@
       <h1>Game Center</h1>
       <button id="memory-game-btn">purrfect memory game</button>
     </div>
-
+  
     <div id="memory-game-screen" class="hide">
+  
+    <h2>Memory Game</h2>
+  
+    <p>
+      Difficulty:
+      <select id="difficulty-select">
+        <option value="easy">easy (3x4)</option>
+        <option value="medium">medium (4x5)</option>
+        <option value="hard">hard (4x6)</option>
+      </select>
+    </p>
+  
+      <p>Time: <span id="memory-time">0</span></p>
+  
+      <button id="start-memory-game">Start Game</button>
       <button id="return-game-center">return to game center</button>
+  
+      <!-- The game board will be added here -->
+      <div id="memory-container"></div>
+  
     </div>
-
+  
     <script src="game-script.js"></script>
-
   </body>
-</html>
+  </html>
