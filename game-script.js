@@ -5,6 +5,7 @@ const memoryGameScreen = document.getElementById("memory-game-screen");
 const memoryButton = document.getElementById("memory-game-btn");
 const returnGameButton = document.getElementById("return-game-center");
 const difficultySelect = document.getElementById("difficulty-select");
+const gameStats = document.getElementById("game-stats");
 const memoryTime = document.getElementById("memory-time");
 const startMemoryBtn = document.getElementById("start-memory-game");
 
@@ -35,8 +36,7 @@ const catImages = [
   "img/memory-game/bi-cat.png",
   "img/memory-game/bibrown-cat.png",
   "img/memory-game/brown-cat.png",
-  "img/memory-game/grey-cat.png",
-  "img/memory-game/greyear-cat.png",
+  "img/memory-game/grey-cat.png","img/memory-game/greyear-cat.png",
   "img/memory-game/mono-cat.png",
   "img/memory-game/monobrown-cat.png",
   "img/memory-game/oreo-cat.png",
@@ -211,49 +211,13 @@ function checkMatch() {
   }
 }
 
-/* =========================== */
-/* HIGH SCORE + GAME OVER POPUP*/
-/* =========================== */
 
-const highScoreDisplay = document.getElementById("high-score");
-const modal = document.getElementById("gameover-modal");
-const modalTime = document.getElementById("gameover-time");
-const modalBest = document.getElementById("gameover-best");
-const playAgainBtn = document.getElementById("play-again");
-const closeModalBtn = document.getElementById("close-modal");
-
-/* Load existing high score or set null */
-let highScore = localStorage.getItem("catMemoryHighScore");
-if (highScore) highScoreDisplay.textContent = highScore;
-
-/* GAME OVER */
+/* game over */
 function gameOver() {
   clearInterval(timer);
-
-  // Update high score
-  if (!highScore || timeCount < highScore) {
-    localStorage.setItem("catMemoryHighScore", timeCount);
-    highScore = timeCount;
-    highScoreDisplay.textContent = highScore;
-  }
-
-  // Show modal
-  modal.style.display = "flex";
-  modalTime.textContent = "Your time: " + timeCount + " seconds";
-  modalBest.textContent = "Best time: " + highScore + " seconds";
+  alert("You win! Time: " + timeCount + " seconds");
 }
 
-/* Close modal */
-closeModalBtn.addEventListener("click", () => {
-  modal.style.display = "none";
-});
-
-/* Replay game */
-playAgainBtn.addEventListener("click", () => {
-  modal.style.display = "none";
-  startTimer();
-  setUpMemoryGame();
-});
 
 /*return to game center*/
 function returnGameScreen() {
@@ -266,6 +230,12 @@ function returnGameScreen() {
   gameCenterScreen.classList.remove("hide");
   gameCenterScreen.classList.add("unhide");
 }
+
+
+
+
+
+
 
 
 
