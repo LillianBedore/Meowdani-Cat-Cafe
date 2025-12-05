@@ -561,119 +561,139 @@ h1, h2, h3 {
 
 
 /*In relation to the Game Center Page (don't change)*/
-/*In relation to the Game Center Page (don't change)*/
-.hide{
-    display: none;
-}
-
-.unhide{
-    display: block;
-}
-
-#memory-container {
-  display: grid;
-  gap: 20px;
-  margin-top: 20px;
-}
-
-.memory-card {
-  width: 100px;
-  height: 100px;
-  cursor: pointer;
-}
-
-#game-hero {
-  position: absolute; 
-  top: 70%;
-  left: 50%;
-  transform: translate(-50%, -50%); 
-  width: 70vw; 
-  height: 100vh; 
-  background-color: white; 
-  border: 1px solid #D63A66; 
-
-  border-radius: 1.2rem;
-  box-sizing: border-box;
-
-}
-
-#center-content{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    align-self: center;
-}
-#difficulty-select{
-    margin: 20px;
-}
-
-#memory-game-btn{
-    margin: 5%;
-}
-
-#memory-game-screen{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
 .hide{
     display: none !important;
 }
 
 .unhide{
-    display: block;
+    display: block !important;
+}
+
+#game-hero {
+  position: relative;
+  margin: 60px auto;
+  width: 70vw;
+  max-width: 900px;
+
+  min-height: 80vh;
+  background-color: white;
+  border: 5px solid #D63A66;
+
+  border-radius: 1.4rem;
+  padding: 40px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+
+#game-hero:hover{
+    border-color: #a5c572; /* Change border color on hover */
+    box-shadow: 0 0 15px #00b894;
+}
+
+/*center internal content */
+#center-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#memory-game-btn {
+  margin-top: 20px;
+  font-size: 1.1rem;
+}
+
+#return-game-button, #start-memory-game{
+    margin: 0px 10px;
+}
+
+/*style memory screen layout */
+#memory-game-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+#memory-container {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+
+  gap: 20px;
+  margin-top: 25px;
+  padding-bottom: 20px;
+}
+
+.memory-card {
+  width: 110px;
+  height: 110px;
+  cursor: pointer;
+
+  border-radius: 10px;
+  transition: transform 0.15s ease;
+}
+
+.memory-card:hover {
+  transform: scale(1.08);
+}
+
+#difficulty-select {
+  margin: 15px 0;
+  font-size: 1rem;
 }
 
 #game-stats {
-  margin: 10px 0;
-  background: var(--white);
-  padding: 10px 20px;
-  border: 2px solid var(--med-green);
-  border-radius: 12px;
-  font-size: 1rem;
-  font-weight: bold;
-  color: var(--dark-green);
-  text-align: center;
+  margin: 12px 0;
+  width: max-content;
 }
 
-/* Game Over Modal */
 #gameover-modal {
-  position: fixed;       /* cover entire page */
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;         /* above EVERYTHING */
+  backdrop-filter: blur(4px);
 }
 
 #gameover-content {
-  background: var(--white);
-  border: 3px solid var(--dark-pink);
-  border-radius: 1.4rem;
-  padding: 30px 40px;
-  width: 320px;
-  text-align: center;
-  animation: pop 0.3s ease-out;
+  width: 350px;
+  padding: 35px 40px;
+  border-radius: 1.6rem;
 }
 
-#gameover-content h2 {
-  color: var(--dark-pink);
-  font-size: 1.8rem;
-  margin-bottom: 10px;
+#play-again, #close-modal {
+  margin-top: 10px;
 }
 
-#gameover-content p {
-  font-size: 1rem;
-  margin-bottom: 15px;
+
+#game-hero {
+    position: relative !important; /* important so the paws position correctly */
+    overflow: visible;
 }
 
-@keyframes pop {
-  0% { transform: scale(0.6); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
+.paw-left {
+    position: absolute;
+    left: 0px;            /* offset from left side */
+    top: 80%;
+    transform: translateY(-50%);
+    width: 100px;            /* adjust size */
+    pointer-events: none;   /* decorative only */
+    user-select: none;
+}
+
+.paw-right {
+    position: absolute;
+    right: 0px;           /* offset from right side */
+    top: 20%;
+    transform: translateY(-50%);
+    width: 100px;
+    pointer-events: none;
+    user-select: none;
+}
+
+.paw-left:hover, .paw-right:hover {
+    animation: wiggle 0.4s ease-in-out;
 }
