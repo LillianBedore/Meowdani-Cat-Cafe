@@ -42,6 +42,7 @@ try {
 // construct a create table (called users) query; if exists then igonre
 $sqlCreateTable = " CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
         email TEXT NOT NULL,
         password TEXT  NOT NULL
     );
@@ -51,7 +52,7 @@ $sqlCreateTable = " CREATE TABLE IF NOT EXISTS users (
 
 try {
     $db->exec($sqlCreateTable);
-    echo "Table 'emails' created successfully or already exists.<br>";
+    echo "Table 'users' created successfully or already exists.<br>";
 } 
 
 // catch the errors associated with excuting the above statement
@@ -62,14 +63,15 @@ catch (Exception $e) {
 }
 
 // get values from form to insert inside the users table
-$user = $_POST['login-email'];
-$password = $_POST['login-password'];
+$name = $_POST['reg-name'];
+$email = $_POST['reg-email'];
+$password = $_POST['reg-password'];
 
-echo "<p> $email: $password (only for testing purposes)<p>";
+echo "<p> $name: $email: $password (only for testing purposes)<p>";
 
 
 // construct an insert query to store values inside table
-$sqlInsert = "INSERT INTO emails (email, password) VALUES (:email, :password)";
+$sqlInsert = "INSERT INTO users (name, email, password) VALUES (:name, :email, :password)";
 
 
 // use try block to construct an insert query  to store values into users.db
@@ -77,12 +79,13 @@ $sqlInsert = "INSERT INTO emails (email, password) VALUES (:email, :password)";
 try {
 
     $stmt = $db->prepare($sqlInsert);
-    $stmt->bindValue(':email', $user, SQLITE3_TEXT);
+    $stmt->bindValue(':name', $name, SQLITE3_TEXT);
+    $stmt->bindValue(':email', $email, SQLITE3_TEXT);
     $stmt->bindValue(':password', $password, SQLITE3_TEXT);
     
     // execute the statement 
     $stmt->execute();
-    echo " Info iserted: $email and $password values inserted successfully.<br>";
+    echo " Info inserted: $name and $email and $password values inserted successfully.<br>";
 
 
 } 
