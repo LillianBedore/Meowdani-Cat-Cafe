@@ -17,7 +17,7 @@
     </head>
 
     <body>
-        <!-- Top bar with logo, nav, and login button -->
+        <!-- Top bar -->
         <header class="main-header">
             <div class="logo-title">
                 <h1 class="site-title">Meowdani</h1>
@@ -36,6 +36,7 @@
         </header>
 
         <main id="main-content">
+
             <!-- Hero section -->
             <section class="hero">
                 <h2 class="hero-title">Find your purr-fect companion!</h2>
@@ -55,7 +56,7 @@
                 </div>
             </section>
 
-            <!-- Quick info cards -->
+            <!-- Info section -->
             <section class="info-section">
                 <h2 class="section-title">Explore Meowdani</h2>
                 <p class="section-intro">
@@ -66,42 +67,31 @@
                 <div class="info-grid">
                     <article class="info-card">
                         <h3>Meet Your Perfect Cat</h3>
-                        <p>
-                            Browse our cat profiles, pick a time slot, and reserve a cozy corner
-                            to hang out with your new furry friend.
-                        </p>
+                        <p>Browse our cat profiles and reserve a cozy corner to hang out.</p>
                         <a href="book.html" class="card-link">Start matching →</a>
                     </article>
 
                     <article class="info-card">
                         <h3>Game Center</h3>
-                        <p>
-                            Take a break with our Meowdani mini game while you wait for your
-                            session or sip your drink.
-                        </p>
+                        <p>Take a break with our Meowdani mini game.</p>
                         <a href="game.html" class="card-link">Play now →</a>
                     </article>
 
                     <article class="info-card">
                         <h3>Cafe Menu</h3>
-                        <p>
-                            Sip on themed lattes, refreshing teas, and snacks while the cats nap nearby.
-                        </p>
+                        <p>Sip themed lattes and snacks while cats nap nearby.</p>
                         <a href="menu.html" class="card-link">View cafe menu →</a>
                     </article>
 
                     <article class="info-card">
                         <h3>Meowdani Merch</h3>
-                        <p>
-                            Take home tote bags, stickers, and cozy merch to remember your visit.
-                        </p>
+                        <p>Take home tote bags, stickers, and cozy merch.</p>
                         <a href="merch.html" class="card-link">Shop merch →</a>
                     </article>
                 </div>
-                
             </section>
 
-            <!-- Login & Registration -->
+            <!-- Authentication Section -->
             <section id="auth-section" class="auth-section">
                 <h2 class="section-title">Login or Join the Cat Club</h2>
                 <p class="section-intro">
@@ -110,11 +100,12 @@
                 </p>
 
                 <div class="auth-forms">
-                    <!-- Login form -->
-                    <form class="auth-form" id='login-form' action="login.php" method="post">
+
+                    <!-- LOGIN FORM (email-only login) -->
+                    <form class="auth-form" id="login-form" action="login.php" method="post">
                         <h3>Login</h3>
 
-                        <label for="login-email">Email / Username</label>
+                        <label for="login-email">Email</label>
                         <input type="email" id="login-email" name="login-email" required>
 
                         <label for="login-password">Password</label>
@@ -123,14 +114,14 @@
                         <button type="submit" class="btn btn-primary form-btn">Login</button>
                     </form>
 
-                    <!-- Registration form -->
-                    <form class="auth-form" id='register-form' action="register.php" method="post">
+                    <!-- REGISTRATION FORM (name + email + password) -->
+                    <form class="auth-form" id="register-form" action="register.php" method="post">
                         <h3>Register</h3>
 
                         <label for="reg-name">Full Name</label>
                         <input type="text" id="reg-name" name="reg-name" required>
 
-                        <label for="reg-email">Email / Username</label>
+                        <label for="reg-email">Email</label>
                         <input type="email" id="reg-email" name="reg-email" required>
 
                         <label for="reg-password">Password</label>
@@ -138,35 +129,15 @@
 
                         <button type="submit" class="btn btn-outline form-btn">Create Account</button>
                     </form>
+
                 </div>
             </section>
+
         </main>
 
         <footer class="site-footer">
             <p>© 2025 Meowdani Cat Cafe. Made with love and cat hair.</p>
         </footer>
-
-        <!-- This is temp, just so the HTML form does something (delete once make PHP form next week) -->
-        <script>
-            const loginForm = document.getElementById("login-form");
-            const registerForm = document.getElementById("register-form");
-        
-            if (loginForm) {
-                loginForm.addEventListener("submit", function (event) {
-                    event.preventDefault();
-                    const email = document.getElementById("login-email").value;
-                    alert("Logged in as: " + email);
-                });
-            }
-        
-            if (registerForm) {
-                registerForm.addEventListener("submit", function (event) {
-                    event.preventDefault();
-                    const name = document.getElementById("reg-name").value;
-                    alert("Welcome to Meowdani, " + name + "!");
-                });
-            }
-</script>
-        
+                
     </body>
 </html>
