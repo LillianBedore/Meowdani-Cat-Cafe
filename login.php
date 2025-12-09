@@ -1,149 +1,66 @@
 <!DOCTYPE HTML>
+<html>
 <head>
   <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <title>Login</title>
 </head>
 <body>
 
 <?php
 
-// use try block to catch and report errors when creating the db
+/*get user input/values from login form*/
+$email = $_POST['login-email'];
+$password = $_POST['login-password'];
 
-try {
-    // Open a connection to the SQLite database
-    // If the users.db doesn't exist, it will be created.
+echo "<p>You entered email: <strong>$email</strong></p>";
 
-    // Use these 2 line when you run the php  live on i6 server  (the following two lines)
-    //NOTE: change this when uploading to i6 individually
-    $path= "/home/lrb9212/databases";
-    $db = new SQLite3($path. '/users.db' );
-
-
-    //Comment the above code if you are testing the code for local server code ( the line after these comments)
-
-    // use this statemnt if testing from local server (and remove //). This will create a local users.db isnide the same folder as program
-    //     $db = new SQLite3($path. '/users.db' );
-
-    // report a message if all went fine for testing purposes
-    echo "Successfully connected to the users.db <br>";
-} 
-
-    // report the error if we couldnt open the test2.db  for testing purposes
-
-    catch (Exception $e) {
-    echo "Error connecting to the database: " . $e->getMessage() . "<br>";
-
-    exit();
+if (!$email || !$password) { //double checking the user entered some email and psswd
+    echo "<p><strong>Email and password are required.</strong></p>";
+    echo "<p><a href='index.html#auth-section'>Try again</a></p>";
+    exit(); //exiting program entirely if no email or psswd entered
 }
 
 
-// get values from form to to lokup in table and see if there is a match 
-$user = $_POST['user'];
-$password = $_POST['password'];
-
-// print only for testing purposes and then remove later
-echo "<p> user entered value from form is $user and passowrd value entered from form is $password <p>";
-
-
-
-// create a line of code to lockup info from table users (was created inside the regSQL.php registration program)
-
-
-// not needed for this login example- you can remove
-// this is to demo how you get all info (all records or row from table)
-
-$sqlSelect = "SELECT id, user, password FROM users";
-
-
-// use try block to execute the query to query all fields from table users
+/*trying to open database (customers.db)/creating it if it doesn't exist*/
 
 try {
-    $results = $db->query($sqlSelect);
-
-
-    // create formatted html output to print as output of query to user
-    // Agin, this is not needed for this example
-    // this is to demo how to print all rows from table
-    
-    echo "<h2>Users List looked up (search query) from Users table:</h2>";
-    echo "<ul>";
-
-
-    $flag = 0;
-    while ($row = $results->fetchArray(SQLITE3_ASSOC)) {
-        echo "<li> ID: " . $row['id'] . ", user: " . $row['user'] . ", password: " . $row['password'] . "</li>";
-    }
- 
-
-} 
-
-// report errors based on executing above statement
-
-catch (Exception $e) {
-    echo "<p>Error querying data: " . $e->getMessage() . "<br>";
+    $path = "/home/dd3552/databases"; //!!!change the HTML to what y'alls are!!!
+    $db = new SQLite3($path . '/customers.db');
+} catch (Exception $e) {
+    exit("<p>Database connection failed: " . $e->getMessage() . "</p>");
 }
 
+/*validating that the email and password submitted match up to a row in the database*/
 
-// find a match with user name and password from db and form values
+$stmt = $db->prepare("
+    SELECT id, name, email, password
+    FROM accounts
+    WHERE email = :email AND password = :password
+");
 
-// create a line of code to lockup info from table users (was created inside the regSQL.php registration program)
+$stmt->bindValue(":email", $email, SQLITE3_TEXT); //bind email collected to val
+$stmt->bindValue(":password", $password, SQLITE3_TEXT); //bind psswd collected to val
 
-$sqlSelect2 = "SELECT id, user, password FROM users WHERE user='$user' and password='$password' ";
+$result = $stmt->execute(); //attempt to execute query ONTO the database
+$user   = $result->fetchArray(SQLITE3_ASSOC); //returns false or an array (aka account exists)
 
+/*response based on if account exists or not*/
 
-// use try block to execute the query; 
-// See if you find a match
-
-try {
-
-    $results2 = $db->query($sqlSelect2);
-
-    if ($results2 === false) 
-    {
-        echo "<p>Error querying data: " . $db->lastErrorMsg() . "<br>";
-    } 
-
-    else 
-    {
-        // Try to fetch one row
-        $row = $results2->fetchArray(SQLITE3_ASSOC);
-
-        // if a it returns a row (a match found)
-        if ($row) 
-        {
-            // Match found
-            echo "<p>match found- Congrats!
-                <p> You are able to login.  
-                  <a href='https://i6.cims.nyu.edu/~sao1/webdev'>Visit our homepage</a></p>";
-        } 
-
-        // no match found
-        else 
-        {
-            // No match
-            echo "<p>You can't access our website:<br>Wrong username or password. 
-                  <a href='login.html'>Try again</a></p>";
-        }
-    
-    }
-
+if ($user) {
+    echo "<p><strong>Login successful!</strong></p>";
+    echo "<p>Welcome, <strong>{$user['name']}</strong>!</p>";
+    echo "<p><a href='index.html'>Visit homepage</a></p>";
 } 
-
-
-// report errors based on executing above statement
-
-catch (Exception $e) 
-{
-    echo "<p>Error querying data: " . $e->getMessage() . "<br>";
+else {
+    echo "<p><strong>Incorrect email or password.</strong></p>";
+    echo "<p><a href='index.html#auth-section'>Try again</a></p>";
 }
 
-
-// close db
-
+/*close database to save vals properly*/
 $db->close();
-
-// use the footer.php to include html closing tags from head.php file
-include "footer.php";
-
 ?>
+
 </body>
 </html>
+
