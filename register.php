@@ -1,112 +1,82 @@
 <!DOCTYPE HTML>
+<html>
 <head>
-  <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <title>Register</title>
 </head>
 <body>
+
 <?php
-// use try block to catch and report errors when creating the db
 
+/*database + table creation*/
+
+//Tries to either open the previously existing customers.db database OR creates a new one if the database doesn't exist.
 try {
-    // Open a connection to the SQLite database
-    // If the users.db doesn't exist, it will be created.
-
-    // Use these 2 line when you run the php  live on i6 server  (the following two lines)
-    //!!!!!NOTE: we have to change the path to corresspond to our own directories when uploading to i6
-    $path= "/home/lrb9212/databases";
-    $db = new SQLite3($path. '/users.db' );
-
-
-    //Comment the above code if you are testing the code for local server code ( the line after these comments)
-
-    // use this statemnt if testing from local server (and remove //). This will create a local users.db isnide the same folder as program
-    //     $db = new SQLite3($path. '/users.db' );
-
-    // report a message if all went fine for testing purposes
-    echo "Successfully connected to the users.db <br>";
-} 
-
-    // report the error if we couldnt open the test2.db  for testing purposes
-
-    catch (Exception $e) {
-    echo "Error connecting to the database: " . $e->getMessage() . "<br>";
-
-    exit();
+    $path = "/home/dd3552/databases";  //!!!change the netID to what y'alls are!!!
+    $db = new SQLite3($path . '/customers.db'); 
+    echo "<p>Connected to database.</p>";
+} catch (Exception $e) {
+    exit("<p>Error connecting to database: " . $e->getMessage() . "</p>");
 }
 
-
-// create a table inside the test2.db; 
-//you can create as many tables as you need - for example you can create two tables for your final project: products and users
-
-
-
-// construct a create table (called users) query; if exists then igonre
-$sqlCreateTable = " CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL,
-        email TEXT NOT NULL,
-        password TEXT  NOT NULL
-    );
+//Creates a string that'll be inserted into a command to create a table titled "accounts" in customers.db if it doesn't already exists
+$sqlCreate = "
+CREATE TABLE IF NOT EXISTS accounts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    password TEXT NOT NULL
+);
 ";
 
-// execute the line of code to create the table within try block to cath errors assoicated with executing this statemenet 
-
 try {
-    $db->exec($sqlCreateTable);
-    echo "Table 'users' created successfully or already exists.<br>";
-} 
-
-// catch the errors associated with excuting the above statement
-
-
-catch (Exception $e) {
-    echo "Error creating table: " . $e->getMessage() . "<br>";
+    $db->exec($sqlCreate); //tries to execute table creation string in database
+} catch (Exception $e) {
+    exit("<p>Error creating table: " . $e->getMessage() . "</p>");
 }
 
-// get values from form to insert inside the users table
+/*getting user input/values from form*/
+
 $name = $_POST['reg-name'];
 $email = $_POST['reg-email'];
 $password = $_POST['reg-password'];
 
-echo "<p> $name: $email: $password (only for testing purposes)<p>";
+/*seeing if the account is already in the database*/
 
+// Check if email already exists
+$check = $db->prepare("SELECT * FROM accounts WHERE email = :email");
+$check->bindValue(':email', $email, SQLITE3_TEXT);
 
-// construct an insert query to store values inside table
-$sqlInsert = "INSERT INTO users (name, email, password) VALUES (:name, :email, :password)";
+$result   = $check->execute(); 
+$existing = $result->fetchArray(SQLITE3_ASSOC); //result obj produces an array OR false
 
-
-// use try block to construct an insert query  to store values into users.db
-
-try {
-
-    $stmt = $db->prepare($sqlInsert);
-    $stmt->bindValue(':name', $name, SQLITE3_TEXT);
-    $stmt->bindValue(':email', $email, SQLITE3_TEXT);
-    $stmt->bindValue(':password', $password, SQLITE3_TEXT);
-    
-    // execute the statement 
-    $stmt->execute();
-    echo " Info inserted: $name and $email and $password values inserted successfully.<br>";
-
-
-} 
-
-// catch and report errors associated with executing above statements
-catch (Exception $e) {
-    echo "Error inserting data: " . $e->getMessage() . "<br>";
+if ($existing) {
+    echo "<p><strong>An account with that email already exists.</strong></p>";
+    echo "<p><a href='index.html#auth-section'>Return to registration</a></p>";
+    exit(); //exits program if the array exists/theres an account w this email
 }
 
 
-// if we are done with the database we should close it
-// this allows Apache to use it again quickly, rather than waiting for
-// the database's natural timeout to occur
+/* insert the new account after checking they dont alr exist */
 
-$db->close();
-unset($db);
+//prepare string + bind values into db table
+$insert = $db->prepare("INSERT INTO accounts (name, email, password) VALUES (:name, :email, :password)");
+$insert->bindValue(':name', $name, SQLITE3_TEXT);
+$insert->bindValue(':email', $email, SQLITE3_TEXT);
+$insert->bindValue(':password', $password, SQLITE3_TEXT);
 
+try {
+    $insert->execute(); //if you can impose values successfully into the table
+    echo "<p><strong>Registration successful!</strong></p>";
+    echo "<p>Hello, <strong>$name</strong> — your account has been created.</p>";
+    echo "<p><a href='index.html#auth-section'>Log in now</a></p>";
+} catch (Exception $e) {
+    echo "<p>Error inserting data: " . $e->getMessage() . "</p>";
+}
 
-echo "Database connection closed.<br>";
+$db->close(); //close database + save info
 ?>
 
 </body>
 </html>
--
