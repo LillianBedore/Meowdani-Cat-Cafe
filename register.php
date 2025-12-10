@@ -120,7 +120,7 @@ $db->close(); //close database + save info
             </p>
 
             <div class="auth-actions">
-                <a href="index.html" class="btn-primary">Back to Home</a>
+                <a href="index.html" class="btn btn-primary">Back to Home</a>
             </div>
         </section>
     </main>
