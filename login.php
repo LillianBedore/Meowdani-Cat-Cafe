@@ -1,15 +1,45 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <link rel="stylesheet" href="styles.css" />
-  <meta charset="UTF-8">
-  <title>Login</title>
+    <meta charset="UTF-8">
+    <title>Login – Meowdani Cat Cafe</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Rock+Salt&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
-  <div class="auth-page-container">
-    <section class="auth-section">
-        <h2 class="section-title">Login</h2>
-        <p class="section-intro">Welcome back to Meowdani! Please log in to continue.</p>
+
+    <header class="main-header">
+        <div class="logo-title">
+            <h1 class="site-title">Meowdani</h1>
+            <p class="site-tagline">Cat Cafe</p>
+        </div>
+
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="book.html">Meet Your Purrfect Cat</a>
+            <a href="game.html">Game Center</a>
+            <a href="menu.html">Menu</a>
+            <a href="merch.html">Merch</a>
+        </nav>
+
+        <a href="#auth-section" class="btn btn-outline login-top">Login</a>
+    </header>
+
+    <main class="auth-page-container">
+        <section class="auth-section" id="auth-section">
+            <h2 class="section-title">Login</h2>
+            <p class="section-intro">Welcome back! Log in to see what new cats friends we have.</p>
+
+            <div class="auth-result">
+              
 <?php
 
 /*get user input/values from login form*/
@@ -63,10 +93,23 @@ else {
 /*close database to save vals properly*/
 $db->close();
 ?>
-<p class="auth-alt-link"> Don’t have an account yet? <a href="index.html#auth-section">Create one here.</a> </p>
-</section>
-</div>
+
+            </div>
+
+            <p class="auth-alt-link">
+                Need an account?
+                <a href="index.html#auth-section"> Register here!</a>
+            </p>
+
+            <div class="auth-actions">
+                <a href="index.html" class="btn btn-primary">Back to Home</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>© 2025 Meowdani Cat Cafe. Made with love and cat hair.</p>
+    </footer>
 
 </body>
 </html>
-
