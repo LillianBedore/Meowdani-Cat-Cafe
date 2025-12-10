@@ -102,7 +102,7 @@ $insert->bindValue(':password', $password, SQLITE3_TEXT);
 
 try {
     $insert->execute(); //if you can impose values successfully into the table
-    echo "<p><strong>Registration successful!</strong></p>";
+    //echo "<p><strong>Registration successful!</strong></p>";
     echo "<p>Hello, <strong>$name</strong> — your account has been created.</p>";
     echo "<p><a href='index.html#auth-section'>Log in now</a></p>";
 } catch (Exception $e) {
