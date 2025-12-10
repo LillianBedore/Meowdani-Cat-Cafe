@@ -513,7 +513,7 @@ h1, h2, h3 {
 }
 
 .auth-alt-link a {
-    color: var(--light-pink);
+    color: var(--dark-pink);
     font-weight: bold;
 }
 
@@ -531,7 +531,7 @@ h1, h2, h3 {
 }
 
 .auth-section a {
-    color: var(--white);
+    color: var(--light-pink);
     font-weight: 700;
     text-decoration: none;
 }
