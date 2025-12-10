@@ -7,6 +7,11 @@
 </head>
 <body>
 
+    <div class="auth-page-container">
+        <section class="auth-section">
+            <h2 class="section-title">Register</h2>
+            <p class="section-intro">Create your Meowdani account to start booking right meow.</p>
+
 <?php
 
 /*database + table creation*/
@@ -77,6 +82,10 @@ try {
 
 $db->close(); //close database + save info
 ?>
+
+<p class="auth-alt-link">Already have an account?<a href="index.html#auth-section">Log in here.</a></p>
+</section>
+</div>
 
 </body>
 </html>
