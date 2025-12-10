@@ -10,7 +10,6 @@
 }
 
 /* Global styles */
-
 * {
     box-sizing: border-box;
     margin: 0;
@@ -520,6 +519,30 @@ h1, h2, h3 {
 
 .auth-alt-link a:hover {
     text-decoration: underline;
+}
+
+.auth-result {
+    margin-top: 1.5rem;
+    line-height: 1.6;
+}
+
+.auth-result p {
+    margin-bottom: 0.4rem;
+}
+
+.auth-section a {
+    color: var(--dark-pink);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.auth-section a:hover {
+    text-decoration: underline;
+}
+
+.auth-actions {
+    margin-top: 1.8rem;
+    text-align: center;
 }
 
 
