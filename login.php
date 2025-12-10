@@ -36,7 +36,7 @@
     <main class="auth-page-container">
         <section class="auth-section" id="auth-section">
             <h2 class="section-title">Login</h2>
-            <p class="section-intro">Welcome back! Log in to see what new cats friends we have.</p>
+            <p class="section-intro">Welcome back! Come see what new cat friends we have.</p>
 
             <div class="auth-result">
               
@@ -83,7 +83,7 @@ $user   = $result->fetchArray(SQLITE3_ASSOC); //returns false or an array (aka a
 if ($user) {
     echo "<p><strong>Login successful!</strong></p>";
     echo "<p>Welcome, <strong>{$user['name']}</strong>!</p>";
-    echo "<p><a href='index.html'>Visit homepage</a></p>";
+    //echo "<p><a href='index.html'>Visit homepage</a></p>";
 } 
 else {
     echo "<p><strong>Incorrect email or password.</strong></p>";
