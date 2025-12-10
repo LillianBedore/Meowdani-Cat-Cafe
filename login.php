@@ -6,7 +6,10 @@
   <title>Login</title>
 </head>
 <body>
-
+  <div class="auth-page-container">
+    <section class="auth-section">
+        <h2 class="section-title">Login</h2>
+        <p class="section-intro">Welcome back to Meowdani! Please log in to continue.</p>
 <?php
 
 /*get user input/values from login form*/
@@ -60,6 +63,9 @@ else {
 /*close database to save vals properly*/
 $db->close();
 ?>
+<p class="auth-alt-link"> Don’t have an account yet? <a href="index.html#auth-section">Create one here.</a> </p>
+</section>
+</div>
 
 </body>
 </html>
