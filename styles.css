@@ -491,7 +491,7 @@ h1, h2, h3 {
 
 .auth-form button {
     margin-top: 1rem;
-    background-color: var(--med-green);
+    background-color: var(--light-pink);
     color: var(--white);
     padding: 0.7rem;
     border: none;
@@ -503,7 +503,7 @@ h1, h2, h3 {
 }
 
 .auth-form button:hover {
-    background-color: var(--dark-green);
+    background-color: var(--med-green);
 }
 
 .auth-alt-link {
@@ -531,7 +531,7 @@ h1, h2, h3 {
 }
 
 .auth-section a {
-    color: var(--light-pink);
+    color: var(--dark-pink);
     font-weight: 700;
     text-decoration: none;
 }
