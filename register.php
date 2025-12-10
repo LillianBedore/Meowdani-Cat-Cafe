@@ -20,7 +20,7 @@
 try {
     $path = "/home/dd3552/databases";  //!!!change the netID to what y'alls are!!!
     $db = new SQLite3($path . '/customers.db'); 
-    echo "<p>Connected to database.</p>";
+    //echo "<p>Connected to database.</p>";
 } catch (Exception $e) {
     exit("<p>Error connecting to database: " . $e->getMessage() . "</p>");
 }
@@ -83,7 +83,7 @@ try {
 $db->close(); //close database + save info
 ?>
 
-<p class="auth-alt-link">Already have an account?<a href="index.html#auth-section">Log in here.</a></p>
+<p class="auth-alt-link">Already have an account? <a href="index.html#auth-section">Log in here.</a></p>
 </section>
 </div>
 
