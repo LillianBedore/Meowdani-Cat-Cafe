@@ -37,7 +37,7 @@
     <main class="auth-page-container">
         <section class="auth-section" id="auth-section">
             <h2 class="section-title">Register</h2>
-            <p class="section-intro">Create your Meowdani account to start booking right meow.</p>
+            <p class="section-intro">Welcome to your Meowdani account, start booking right meow!</p>
 
             <div class="auth-result">
 
