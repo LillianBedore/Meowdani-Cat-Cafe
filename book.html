@@ -38,7 +38,7 @@
             <div class="slideshow-container" style="width:300px;height:300px"> 
 
             <div class="mySlides fade">
-            <img src="img/cat-1.png" style="width:100%;max-width: 300px;max-height: 300px;">
+            <img src="img/cat-1.png" style="width:100%;max-width: 300px;max-height: 300px">
             </div>
 
             <div class="mySlides fade">
@@ -67,7 +67,7 @@
             <section class="auth-forms">
                 <form class="auth-form" action="#" method="post">
                         <h3 class="hero-title" style="text-align: center">Book a time with your purrfect companion!</h2>
-                        <p style="text-align: center">Our cats are ready to find their forever homes! Request a time to come meet one of our cats!</p>
+                        <p style="text-align: center">Our cats are ready to find their forever homes! Request a reservation at Meowdani Cat Cafe to come meet one of our cats!</p>
                         <br>
                         <p id="current-date" style="text-align: center"></p>
 
@@ -77,8 +77,8 @@
                         <label for="reg-email">Email</label>
                         <input type="email" id="reg-email" name="reg-email" required>
 
-                        <label for="date-time">Date and time:</label>
-                        <input type="datetime-local" step="1800" id="date-time" name="date-time">
+                        <label for="date-time-select">Date and time:</label>
+                        <select id="date-time" name="date-time"></select>
 
                         <label for="cat-name">What cat would you like to meet? If you want to meet multiple, hold down the the Ctrl (windows) / Command (Mac) button on your device.</label>
                         <select id="cats" name="cats" size="8" multiple>
@@ -91,20 +91,21 @@
                               <option value="1">Joel</option>
                               <option value="1">Sana</option>
                         </select>
-
-                        <button type="submit" class="btn btn-outline form-btn">Submit Appointment Request</button>
-                    </form>
-
-                <div class="hero-actions" style="text-align: center">
-                   <div class="receipt" id="receipt">
+            </form>
+            <div>
+                   <div class="receipt" id="receipt" style=" background-color: var(--white);border: 3px solid var(--med-pink); padding: 5px">
                     <!-- <div class="line"><span>Selected items subtotal:</span><span id="subtotal">$0.00</span></div> -->
                     <!-- <div class="line"><span>Subtotal × 5: </span><span id="multiply-math">$0.00</span></div> -->
 
-                    <div class="totals line"><strong>Final total: </strong><strong id="final">$15.00</strong></div>
-
+                    <div class="cat total line"><strong>Appointment total: </strong><strong id="final">$<span id="base-cost">15.00</span> + <span id=cat-total>0</span> cats x $5</strong></div>
+                    <div class="cat total line"><strong>Processing fees: </strong><strong id="final">$<span id="fees">2.50</span></strong></div>
+                    <div class="totals line"><strong>Final total: </strong><strong id="final">$<span id="final-cost">15.00</span></strong></div>
+                    </div>
+                    <div style="align-items: center;">
+                    <button type="submit" class="btn btn-outline form-btn" style="background-color: white; border-radius: 0px;">Submit Reservation Request</button>
                     </div>
                     </div>
-                </div>
+            </div>
             </section>
         </main>
 
