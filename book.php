@@ -1,132 +1,155 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Login – Meowdani Cat Cafe</title>
+<meta charset="UTF-8">
+<title>Book a Cat</title>
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Rock+Salt&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Rock+Salt&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-    <header class="main-header">
-        <div class="logo-title">
-            <h1 class="site-title">Meowdani</h1>
-            <p class="site-tagline">Cat Cafe</p>
-        </div>
+<header class="main-header">
+  <div class="logo-title">
+    <h1 class="site-title">Meowdani</h1>
+    <p class="site-tagline">Cat Cafe</p>
+  </div>
 
-        <nav class="main-nav">
-            <a href="index.html">Home</a>
-            <a href="book.html">Meet Your Purrfect Cat</a>
-            <a href="game.html">Game Center</a>
-            <a href="menu.html">Menu</a>
-            <a href="merch.html">Merch</a>
-        </nav>
+  <nav class="main-nav">
+    <a href="index.html">Home</a>
+    <a href="book.html">Meet Your Perfect Cat</a>
+    <a href="game.html">Game Center</a>
+    <a href="menu.html">Menu</a>
+    <a href="merch.html">Merch</a>
+  </nav>
 
-        <a href="#auth-section" class="btn btn-outline login-top">Login</a>
-    </header>
+  <a href="index.html#auth-section" class="btn btn-outline login-top">Login</a>
+</header>
 
-    <main class="auth-page-container">
-        <section class="auth-section" id="auth-section">
-            <h2 class="section-title">Request received!</h2>
-            <p class="section-intro">We're excited for your visit to Meowdani Cat Cafe!</p>
-            
-            <div class="auth-result">
+<main id="main-content">
+
+<section class="page-hero">
 <?php
-// Get the user's input from the form
-$name = $_POST['reg-name'];
-$email = $_POST['reg-email'];
-$datetime = $_POST['date-time'];
-$cats = $_POST['cats'];
-$total = $_POST['final-cost'];
+//get values
+$name     = $_POST['name'] ?? '';
+$email    = $_POST['email'] ?? '';
+$datetime = $_POST['date-time'] ?? '';
+$cats     = $_POST['cats'] ?? [];
+$total    = $_POST['total'] ?? '0.00';
 
-echo "<p>You selected datetime: <strong>$datetime</strong></p>";
-
-if (!$name || !$email || !$datetime) {
-    echo "<p><strong>All fields are required: Name, Email, and Date/Time.</strong></p>";
-    echo "<p><a href='book.html'>Try again</a></p>";
-    exit();
+if (!$name || !$email || !$datetime) { //if user didnt fill smthn out
+    exit("<p>Missing required information.</p>");
 }
+
+$catList = empty($cats) ? "None" : implode(", ", $cats); //check if u booked w a cat, append strings if u booked w multiple
 
 try {
-    // Establish the SQLite3 database connection
-    $path = "/home/kar9641/databases";
-    $db = new SQLite3($path . '/customers.db');
+    $path = "/home/dd3552/databases";
+    $db = new SQLite3($path . "/customers.db");
 } catch (Exception $e) {
-    exit("<p>Database connection failed: " . $e->getMessage() . "</p>");
+    exit("<p>Database connection failed.</p>");
 }
 
-// Create the accounts table if it does not exist
+/*create accounts table if doesnt exist alr */
 $db->exec("
 CREATE TABLE IF NOT EXISTS accounts (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    email TEXT NOT NULL UNIQUE,
-    datetime DATETIME NOT NULL UNIQUE, -- UNIQUE constraint to prevent duplicate entries
-    cats TEXT,
-    total REAL
-);
+    name TEXT,
+    email TEXT UNIQUE,
+    password TEXT
+)
 ");
 
-// Check if the datetime already exists in the database
-$stmt = $db->prepare("SELECT * FROM accounts WHERE datetime = :datetime");
-$stmt->bindValue(":datetime", $datetime, SQLITE3_TEXT);
-$result = $stmt->execute();
-
-if ($result->fetchArray(SQLITE3_ASSOC)) {
-    // If a row with the same datetime exists, show an error
-    echo "<p><strong>Error:</strong> The time slot <strong>$datetime</strong> is already taken. Please choose a different time.</p>";
-    echo "<p><a href='book.html'>Try again</a></p>";
-    $db->close();
-    exit();
+/* add booking column to user account if doesnt exist alr */
+$existingCols = [];
+$cols = $db->query("PRAGMA table_info(accounts)");
+while ($row = $cols->fetchArray(SQLITE3_ASSOC)) {
+    $existingCols[] = $row['name'];
 }
 
-// If no conflict, insert the new user's data into the database
-$stmt = $db->prepare("
-    INSERT INTO accounts (name, email, datetime, cats, total)
-    VALUES (:name, :email, :datetime, :cats, 0)
-");
-$stmt->bindValue(":name", $name, SQLITE3_TEXT);
-$stmt->bindValue(":email", $email, SQLITE3_TEXT);
-$stmt->bindValue(":datetime", $datetime, SQLITE3_TEXT);
-$stmt->bindValue(":cats", $cats, SQLITE3_TEXT);
+if (!in_array('booking_datetime', $existingCols)) {
+    $db->exec("ALTER TABLE accounts ADD COLUMN booking_datetime TEXT");
+}
 
-if ($stmt->execute()) {
-    // Success message
-    echo "<p><strong>Successfully registered!</strong></p>";
-    echo "<p>Thank you, <strong>$name</strong>, for scheduling your appointment for <strong>$datetime</strong>.</p>";
-    echo "<p><a href='index.html'>Visit homepage</a></p>";
+if (!in_array('booked_cats', $existingCols)) {
+    $db->exec("ALTER TABLE accounts ADD COLUMN booked_cats TEXT");
+}
+
+if (!in_array('total_paid', $existingCols)) {
+    $db->exec("ALTER TABLE accounts ADD COLUMN total_paid REAL");
+}
+
+/* check if slot alr booked*/
+$checkTime = $db->prepare("
+    SELECT id FROM accounts
+    WHERE booking_datetime = :dt
+");
+$checkTime->bindValue(":dt", $datetime, SQLITE3_TEXT);
+
+if ($checkTime->execute()->fetchArray()) {
+    exit("<p><strong>This time slot is already booked.</strong></p>");
+}
+
+/* check if user alr booked once */
+$checkUser = $db->prepare("
+    SELECT id, booking_datetime FROM accounts
+    WHERE email = :email
+");
+$checkUser->bindValue(":email", $email, SQLITE3_TEXT);
+$user = $checkUser->execute()->fetchArray(SQLITE3_ASSOC);
+
+if ($user && $user['booking_datetime']) {
+    exit("<p><strong>You have already booked a visit.</strong></p>");
+}
+
+/*update user or create a new one*/
+if ($user) {
+
+    $update = $db->prepare("
+        UPDATE accounts
+        SET booking_datetime = :dt,
+            booked_cats = :cats,
+            total_paid = :total
+        WHERE email = :email
+    ");
+
+    $update->bindValue(":dt", $datetime, SQLITE3_TEXT);
+    $update->bindValue(":cats", $catList, SQLITE3_TEXT);
+    $update->bindValue(":total", $total, SQLITE3_FLOAT);
+    $update->bindValue(":email", $email, SQLITE3_TEXT);
+    $update->execute();
+
 } else {
-    // If there’s an error inserting the data, show an error message
-    echo "<p><strong>Error:</strong> Could not save the appointment. Please try again.</p>";
+
+    $insert = $db->prepare("
+        INSERT INTO accounts
+        (name, email, booking_datetime, booked_cats, total_paid)
+        VALUES (:name, :email, :dt, :cats, :total)
+    ");
+
+    $insert->bindValue(":name", $name, SQLITE3_TEXT);
+    $insert->bindValue(":email", $email, SQLITE3_TEXT);
+    $insert->bindValue(":dt", $datetime, SQLITE3_TEXT);
+    $insert->bindValue(":cats", $catList, SQLITE3_TEXT);
+    $insert->bindValue(":total", $total, SQLITE3_FLOAT);
+    $insert->execute();
 }
 
-$db->close(); // Close the database connection
+$db->close();
 ?>
 
-</div>
+<!-- Receipt Output -->
+<p><strong>Booking Confirmed!</strong></p>
+<p><strong>Name:</strong> <?= htmlspecialchars($name) ?></p>
+<p><strong>Email:</strong> <?= htmlspecialchars($email) ?></p>
+<p><strong>Date & Time:</strong> <?= htmlspecialchars($datetime) ?></p>
+<p><strong>Cats Booked:</strong> <?= htmlspecialchars($catList) ?></p>
+<p><strong>Total Charged:</strong> $<?= htmlspecialchars($total) ?></p>
 
-            <p class="auth-alt-link">
-                Need an account?
-                <a href="index.html#auth-section"> Register here!</a>
-            </p>
-
-            <div class="auth-actions">
-                <a href="index.html" class="btn btn-primary">Back to Home</a>
-            </div>
-        </section>
-    </main>
-
-    <footer class="site-footer">
-        <p>© 2025 Meowdani Cat Cafe. Made with love and cat hair.</p>
-    </footer>
-
+</section>
 </body>
 </html>
