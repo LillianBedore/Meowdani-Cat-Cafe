@@ -19,15 +19,12 @@ function showSlides() {
 
 // Generate date and time for booking
 
-    // Helpers
     const pad = n => String(n).padStart(2, '0');
     const toValue = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
     const toLabel = d => d.toLocaleString(); // human readable
 
     const select = document.getElementById('date-time');
-    const preview = document.getElementById('preview');
-
-    // Build tomorrow at 00:00 and add options every 30 minutes
+    
     const now = new Date();
     const tomorrowStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0, 0);
     const tomorrowAt10 = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 10, 0, 0, 0);
@@ -35,36 +32,64 @@ function showSlides() {
     for (let minutes = 0; minutes < 24 * 60; minutes += 30) {
       const d = new Date(tomorrowStart.getTime() + minutes * 60000);
       const opt = document.createElement('option');
-      opt.value = toValue(d);      // YYYY-MM-DDTHH:MM (compatible with datetime-local)
-      opt.textContent = toLabel(d); // readable label
+      opt.value = toValue(d);      // YYYY-MM-DDTHH:MM
+      opt.textContent = toLabel(d);
       select.appendChild(opt);
     }
 
-    // Explicitly select tomorrow at 10:00 (ensures the value is set even if the loop order changes)
     select.value = toValue(tomorrowAt10);
 
-    // Update preview area
-    function updatePreview() {
-      const val = select.value;
-      if (!val) {
-        preview.innerHTML = 'Selected (human): —<br>Selected (value): —';
-        return;
-      }
-      // Parse YYYY-MM-DDTHH:MM back into a Date in local timezone
-      const [datePart, timePart] = val.split('T');
-      const [y, m, d] = datePart.split('-').map(Number);
-      const [hh, mm] = timePart.split(':').map(Number);
-      const dateObj = new Date(y, m - 1, d, hh, mm, 0, 0);
+//update shopping cart information
+function total() {
+    const catPrice = 5.00; 
+    const baseRate = 15.00;
+    const processingFee = 2.50;
 
-      preview.innerHTML = `Selected (human): <strong>${dateObj.toLocaleString()}</strong><br>Selected (value): <code>${val}</code>`;
+    const cats = document.getElementById("cats");
+    const catQty = Array.from(cats.options).filter(opt => opt.selected).length;
+
+    const catTotal = baseRate + (catQty * catPrice);
+    const grandTotal = catTotal + processingFee; 
+
+    document.getElementById("cat-total").innerText = (catQty > 0 ? catQty : 0); 
+    document.getElementById("final-cost").innerText = grandTotal.toFixed(2);
+}
+
+document.getElementById("cats").addEventListener("change", total);
+
+    
+// creating unavailable dates
+document.getElementById('auth-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const formData = new FormData(this);
+
+  fetch('book.php', {
+    method: 'POST',
+    body: formData
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.status === 'success') {
+      refreshUnavailableDates();
     }
+  });
+});
 
-    // Initialize preview
-    updatePreview();
+function refreshUnavailableDates() {
+  fetch('get_unavailable.php')
+    .then(res => res.json())
+    .then(dates => {
+      const dateInput = document.getElementById('datePicker');
+      dateInput.addEventListener('input', function() {
+        if (dates.includes(this.value)) {
+          alert("This date is fully booked. Please choose another.");
+          this.value = '';
+        }
+      });
+    });
+}
 
-    // Update preview when user picks a different option
-    select.addEventListener('change', updatePreview);
-
+window.onload = refreshUnavailableDates;
 
 // Live update receipt (struggled to get it to work using JS, commenting it out until next report)
   // const STARTING = 15.0;

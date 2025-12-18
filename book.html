@@ -65,9 +65,9 @@
             </div>
             </section>
             <section class="auth-forms">
-                <form class="auth-form" action="#" method="post">
+                <form class="auth-form" action="book.php" method="post">
                         <h3 class="hero-title" style="text-align: center">Book a time with your purrfect companion!</h2>
-                        <p style="text-align: center">Our cats are ready to find their forever homes! Request a reservation at Meowdani Cat Cafe to come meet one of our cats!</p>
+                        <p style="text-align: center">Our cats are ready to find their forever homes! Request a reservation at Meowdani Cat Cafe to come meet one of our cats!<br><i>Note: Meowdani Cat Cafe is still in beta and cannot process multiple bookings under the same account at this time.</i></p>
                         <br>
                         <p id="current-date" style="text-align: center"></p>
 
@@ -89,20 +89,18 @@
                               <option value="1">Dolly</option>
                               <option value="1">Henrietta</option>
                               <option value="1">Joel</option>
-                              <option value="1">Sana</option>
+                              <option value="1">Sana</option selected>
                         </select>
+                        <button type="submit" class="btn btn-outline form-btn">Submit Reservation Request</button>
             </form>
             <div>
                    <div class="receipt" id="receipt" style=" background-color: var(--white);border: 3px solid var(--med-pink); padding: 5px">
-                    <!-- <div class="line"><span>Selected items subtotal:</span><span id="subtotal">$0.00</span></div> -->
-                    <!-- <div class="line"><span>Subtotal × 5: </span><span id="multiply-math">$0.00</span></div> -->
 
-                    <div class="cat total line"><strong>Appointment total: </strong><strong id="final">$<span id="base-cost">15.00</span> + <span id=cat-total>0</span> cats x $5</strong></div>
+                    <div class="cat total line"><strong>Appointment total: </strong><strong id="final">$<span id="base-cost">15.00</span> + <span id=cat-total>1</span> cats x $5</strong></div>
                     <div class="cat total line"><strong>Processing fees: </strong><strong id="final">$<span id="fees">2.50</span></strong></div>
-                    <div class="totals line"><strong>Final total: </strong><strong id="final">$<span id="final-cost">15.00</span></strong></div>
+                    <div class="totals line"><strong>Final total: </strong><strong id="final">$<span id="final-cost">17.00</span></strong></div>
                     </div>
                     <div style="align-items: center;">
-                    <button type="submit" class="btn btn-outline form-btn" style="background-color: white; border-radius: 0px;">Submit Reservation Request</button>
                     </div>
                     </div>
             </div>
@@ -111,8 +109,9 @@
 
         <footer class="site-footer">
             <p>Hours: Every day 10am - 7pm. Late appointments available upon request.</p>
+            <p>123 W 4th Street New York, NY 12345</p>
             <br>
-            <p>Book Now (link coming soon!)</p>
+            <p><a href=book.html> Book Now</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=game.html>Play The Game</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=menu.html>View Our Menu</a></p>
             <br>
             <p>© 2025 Meowdani Cat Cafe. Made with love and cat hair.</p>
         </footer>

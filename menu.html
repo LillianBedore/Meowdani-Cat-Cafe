@@ -23,7 +23,7 @@
 
             <nav class="main-nav">
                 <a href="index.html">Home</a>
-                <a href="book.html">Meet Your Purrfect Cat</a>
+                <a href="book.html">Meet Your Perfect Cat</a>
                 <a href="game.html">Game Center</a>
                 <a href="menu.html">Menu</a>
                 <a href="merch.html">Merch</a>
@@ -38,9 +38,15 @@
                 <p>
                     Drinks and snacks crafted to keep you cozy while the cats
                     curl up nearby.
-                </p>
+                <!-- Search Bar -->
+                <form action="search.php" method="GET" class="menu-search-form">
+                    <label for="query">Search our menu:</label>
+                    <input type="text" id="query" name="query" placeholder="e.g., latte, brownie" required>
+                    <button type="submit">Search</button>
+                </form>
             </section>
 
+            <!-- Menu Results -->
             <section class="menu-grid">
                 <article class="menu-card">
                     <h3 class="menu-section-title">Catpuccinos & Lattes</h3>
@@ -108,9 +114,17 @@
                     <p class="menu-item-note">Flaky crescent with a cheesy center.</p>
                 </article>
             </section>
+
+                </div>
+            </section>
         </main>
 
         <footer class="site-footer">
+            <p>Hours: Every day 10am - 7pm. Late appointments available upon request.</p>
+            <p>123 W 4th Street New York, NY 12345</p>
+            <br>
+            <p><a href=book.html> Book Now</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=game.html>Play The Game</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=menu.html>View Our Menu</a></p>
+            <br>
             <p>© 2025 Meowdani Cat Cafe. Made with love and cat hair.</p>
         </footer>
     </body>
