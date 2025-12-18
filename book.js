@@ -1,107 +1,87 @@
-// Slideshow js
-
+/* Cat Slideshow*/
 let slideIndex = 0;
-showSlides(slideIndex);
-
-showSlides();
 
 function showSlides() {
-  let i;
-  let slides = document.getElementsByClassName("mySlides");
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";
-  }
-  slideIndex++;
-  if (slideIndex > slides.length) {slideIndex = 1}
-  slides[slideIndex-1].style.display = "block";
-  setTimeout(showSlides, 1000);
-}
+    const slides = document.getElementsByClassName("mySlides");
 
-// Generate date and time for booking
-
-    const pad = n => String(n).padStart(2, '0');
-    const toValue = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
-    const toLabel = d => d.toLocaleString(); // human readable
-
-    const select = document.getElementById('date-time');
-    
-    const now = new Date();
-    const tomorrowStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0, 0);
-    const tomorrowAt10 = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 10, 0, 0, 0);
-
-    for (let minutes = 0; minutes < 24 * 60; minutes += 30) {
-      const d = new Date(tomorrowStart.getTime() + minutes * 60000);
-      const opt = document.createElement('option');
-      opt.value = toValue(d);      // YYYY-MM-DDTHH:MM
-      opt.textContent = toLabel(d);
-      select.appendChild(opt);
+    // Hide all slides
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
     }
 
-    select.value = toValue(tomorrowAt10);
-
-//update shopping cart information
-function total() {
-    const catPrice = 5.00; 
-    const baseRate = 15.00;
-    const processingFee = 2.50;
-
-    const cats = document.getElementById("cats");
-    const catQty = Array.from(cats.options).filter(opt => opt.selected).length;
-
-    const catTotal = baseRate + (catQty * catPrice);
-    const grandTotal = catTotal + processingFee; 
-
-    document.getElementById("cat-total").innerText = (catQty > 0 ? catQty : 0); 
-    document.getElementById("final-cost").innerText = grandTotal.toFixed(2);
-}
-
-document.getElementById("cats").addEventListener("change", total);
-
-    
-// creating unavailable dates
-document.getElementById('auth-form').addEventListener('submit', function(e) {
-  e.preventDefault();
-  const formData = new FormData(this);
-
-  fetch('book.php', {
-    method: 'POST',
-    body: formData
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data.status === 'success') {
-      refreshUnavailableDates();
+    slideIndex++;
+    if (slideIndex > slides.length) {
+        slideIndex = 1;
     }
-  });
-});
 
-function refreshUnavailableDates() {
-  fetch('get_unavailable.php')
-    .then(res => res.json())
-    .then(dates => {
-      const dateInput = document.getElementById('datePicker');
-      dateInput.addEventListener('input', function() {
-        if (dates.includes(this.value)) {
-          alert("This date is fully booked. Please choose another.");
-          this.value = '';
-        }
-      });
-    });
+    slides[slideIndex - 1].style.display = "inline";
+
+    setTimeout(showSlides, 1500); // change speed here
 }
 
-window.onload = refreshUnavailableDates;
+// Start slideshow once page loads
+document.addEventListener("DOMContentLoaded", showSlides);
 
-// Live update receipt (struggled to get it to work using JS, commenting it out until next report)
-  // const STARTING = 15.0;
-  // const selectCats = $('#cats');
-  // const subtotalEl = $('#subtotal');
-  // const multipliedEl = $('#multiply-math');
-  // const startingEl = $('#starting');
-  // const finalEl = $('#final');
-  // const itemsList = $('#items-list');
-  // const bookingForm = document.querySelector('form.auth-form');
-  // const currentDateEl = document.querySelector('.current-date');
-  // const checkedCat = form.querySelector('option[value="1"]:checked');
+
+/* date/time booking slots */
+const select = document.getElementById("date-time");
+
+const now = new Date();
+const start = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate() + 1,
+    10,
+    0
+);
+
+function pad(n) {
+    return n.toString().padStart(2, "0");
+}
+
+function formatValue(d) {
+    return (
+        d.getFullYear() + "-" +
+        pad(d.getMonth() + 1) + "-" +
+        pad(d.getDate()) + " " +
+        pad(d.getHours()) + ":" +
+        pad(d.getMinutes())
+    );
+}
+
+function formatLabel(d) {
+    return d.toLocaleString();
+}
+
+for (let i = 0; i < 16; i++) {
+    const d = new Date(start.getTime() + i * 30 * 60000);
+
+    const opt = document.createElement("option");
+    opt.value = formatValue(d);   
+    opt.textContent = formatLabel(d); 
+
+    select.appendChild(opt);
+}
+
+
+/* Math/Calculating Pricing */
+const BASE = 15;
+const CAT_PRICE = 5;
+const FEE = 2.5;
+
+const checkboxes = document.querySelectorAll('input[name="cats[]"]');
+const totalDisplay = document.getElementById("totalDisplay");
+const totalInput = document.getElementById("totalInput");
+
+function updateTotal() {
+    let count = document.querySelectorAll('input[name="cats[]"]:checked').length;
+    let total = BASE + (count * CAT_PRICE) + FEE;
+    totalDisplay.textContent = total.toFixed(2);
+    totalInput.value = total.toFixed(2);
+}
+
+checkboxes.forEach(cb => cb.addEventListener("change", updateTotal));
+updateTotal();
  
   // function calculateReceipt() {
     //const selected = Array.from(selectCats.selectedOptions);
