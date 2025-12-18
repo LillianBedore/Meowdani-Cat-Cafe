@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Login – Meowdani Cat Cafe</title>
+    <title>Search Results – Meowdani Cat Cafe</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,82 +16,129 @@
 </head>
 <body>
 
-    <header class="main-header">
-        <div class="logo-title">
-            <h1 class="site-title">Meowdani</h1>
-            <p class="site-tagline">Cat Cafe</p>
-        </div>
+<header class="main-header">
+    <div class="logo-title">
+        <h1 class="site-title">Meowdani</h1>
+        <p class="site-tagline">Cat Cafe</p>
+    </div>
 
-        <nav class="main-nav">
-            <a href="index.html">Home</a>
-            <a href="book.html">Meet Your Purrfect Cat</a>
-            <a href="game.html">Game Center</a>
-            <a href="menu.html">Menu</a>
-            <a href="merch.html">Merch</a>
-        </nav>
+    <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="book.html">Meet Your Purrfect Cat</a>
+        <a href="game.html">Game Center</a>
+        <a href="menu.html">Menu</a>
+        <a href="merch.html">Merch</a>
+    </nav>
 
-        <a href="#auth-section" class="btn btn-outline login-top">Login</a>
-    </header>
+    <a href="menu.html" class="btn btn-outline login-top">Back to Menu</a>
+</header>
 
-    <main class="auth-page-container">
-        <section class="menu-grid">
+<main class="auth-page-container">
+<?php echo "<h1 class='results-section-title'>Search Results</h1>"; ?>
+<section class="results-grid">
+
 <?php
-// Simulated Menu Dataset with Prices and Descriptions
-$menuItems = [
+$menu = [
     "Catpuccinos & Lattes" => [
-        ["name" => "Classic Latte", "price" => "$4.50", "note" => "Espresso with steamed milk. Meow-approved."],
-        ["name" => "Vanilla Catpuccino", "price" => "$5.00", "note" => "Foamy, sweet, and perfect for cat-watching."],
-        ["name" => "Strawberry Matcha Meow Latte", "price" => "$5.25", "note" => "Creamy matcha with a soft green hue."],
+        "Classic Latte" => [
+            "price" => "$4.50",
+            "description" => "Espresso with steamed milk. Meow-approved."
+        ],
+        "Vanilla Catpuccino" => [
+            "price" => "$5.00",
+            "description" => "Foamy, sweet, and perfect for cat-watching."
+        ],
+        "Strawberry Matcha Meow Latte" => [
+            "price" => "$5.25",
+            "description" => "Creamy matcha with a soft green hue."
+        ]
     ],
+
     "Tea & Cool Drinks" => [
-        ["name" => "Chamomile Nap Time Tea", "price" => "$3.75", "note" => "Relaxing herbal tea for slow afternoons."],
-        ["name" => "Iced Pink Paw Lemonade", "price" => "$4.25", "note" => "Lemonade with a hint of berry and fizz."],
-        ["name" => "Sparkling Catnip Spritz", "price" => "$4.50", "note" => "Minty, bubbly, and refreshing."],
+        "Chamomile Nap Time Tea" => [
+            "price" => "$3.75",
+            "description" => "Relaxing herbal tea for slow afternoons."
+        ],
+        "Iced Pink Paw Lemonade" => [
+            "price" => "$4.25",
+            "description" => "Lemonade with a hint of berry and fizz."
+        ],
+        "Sparkling Catnip Spritz" => [
+            "price" => "$4.50",
+            "description" => "Minty, bubbly, and refreshing."
+        ]
     ],
+
     "Snacks & Treats" => [
-        ["name" => "Paw Print Cookie", "price" => "$2.50", "note" => "Sugar cookie with a chocolate paw design."],
-        ["name" => "Kitty Corner Brownie", "price" => "$3.00", "note" => "Rich chocolate brownie with a fudge swirl."],
-        ["name" => "Mini Cheese Paw-sant", "price" => "$3.25", "note" => "Flaky crescent with a cheesy center."],
-    ],
+        "Paw Print Cookie" => [
+            "price" => "$2.50",
+            "description" => "Sugar cookie with a chocolate paw design."
+        ],
+        "Kitty Corner Brownie" => [
+            "price" => "$3.00",
+            "description" => "Rich chocolate brownie with a fudge swirl."
+        ],
+        "Mini Cheese Paw-sant" => [
+            "price" => "$3.25",
+            "description" => "Flaky crescent with a cheesy center."
+        ]
+    ]
 ];
 
-// Retrieve search query
-$query = isset($_GET['query']) ? htmlspecialchars($_GET['query']) : null;
+if (isset($_GET['query'])) {
+    $query = strtolower(trim($_GET['query']));
+    $results = [];
 
-// Function to display menu items
-function displayMenuCategories($menuItems, $query = null)
-{
-    foreach ($menuItems as $category => $items) {
-        // Check if the category has any items that match the query (if there's a search)
-        $filteredItems = array_filter($items, function ($item) use ($query) {
-            return !$query || 
-                   stripos($item['name'], $query) !== false || 
-                   stripos($item['note'], $query) !== false;
-        });
+    echo "<p1 class='results-query'> You searched for: $query.</p1>";
+    echo "<a id='results-home-btn' class='btn btn-outline' href='index.html'>Return to Home</a>";
 
-        if (!empty($filteredItems)) {
-            echo "<article class='menu-card'>";
-            echo "<h3 class='menu-section-title'>$category</h3>";
+    foreach ($menu as $sectionTitle => $items) {
 
-            foreach ($filteredItems as $item) {
-                echo "<div class='menu-item'>
-                        <span class='menu-item-name'>{$item['name']}</span>
-                        <span class='menu-item-price'>{$item['price']}</span>
-                      </div>
-                      <p class='menu-item-note'>{$item['note']}</p>";
+        // If section title matches → include all items
+        if (stripos($sectionTitle, $query) !== false) {
+            foreach ($items as $itemName => $details) {
+                $results[$itemName] = $details;
             }
+            continue;
+        }
 
-            echo "</article>";
+        // Otherwise search individual items
+        foreach ($items as $itemName => $details) {
+            if (
+                stripos($itemName, $query) !== false ||
+                stripos($details['description'], $query) !== false
+            ) {
+                $results[$itemName] = $details;
+            }
         }
     }
-}
 
-// HTML structure for menu page
+    if (!empty($results)) {
+        foreach ($results as $itemName => $details) {
+            echo "
+            <article class='results-card'>
+                <div class='results-item'>
+                    <span class='results-item-name'>".htmlspecialchars($itemName)."</span>
+                    <span class='results-item-price'>" . htmlspecialchars($details['price']) . "</span>
+                </div>
+                <p class='results-item-note'>" . htmlspecialchars($details['description']) . "</p>
+            </article>
+            ";
+        }
+    } else {
+        echo "<p class='results-card'>No menu items matched your search. Try different keywords!</p>";
+    }
+} else {
+    echo "<p class='results-card'>Please enter a search term.</p>";
+}
 ?>
-    </section>
-    </main>
-    <footer class="site-footer">
+
+</section>
+</main>
+
+<footer class="site-footer">
     <p>© 2025 Meowdani Cat Cafe. Made with love and cat hair.</p>
-    </footer>
-    </body>
+</footer>
+
+</body>
 </html>
