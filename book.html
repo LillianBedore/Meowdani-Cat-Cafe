@@ -1,122 +1,88 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8"></meta>
-        <title>Meet Your Perfect Cat</title>
-        <!-- Google Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Rock+Salt&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="styles.css">
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Book a Cat</title>
 
-        <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    </head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Rock+Salt&display=swap" rel="stylesheet">
 
-    <body>
-        <header class="main-header">
-            <div class="logo-title">
-                <h1 class="site-title">Meowdani</h1>
-                <p class="site-tagline">Cat Cafe</p>
-            </div>
+<link rel="stylesheet" href="styles.css">
+</head>
 
-            <nav class="main-nav">
-                <a href="index.html">Home</a>
-                <a href="book.html">Meet Your Purrfect Cat</a>
-                <a href="game.html">Game Center</a>
-                <a href="menu.html">Menu</a>
-                <a href="merch.html">Merch</a>
-            </nav>
+<body>
 
-            <a href="#auth-section" class="btn btn-outline login-top">Login</a>
-        </header>
+<header class="main-header">
+  <div class="logo-title">
+    <h1 class="site-title">Meowdani</h1>
+    <p class="site-tagline">Cat Cafe</p>
+  </div>
 
-        <main id="main-content">
-            <section class="page-hero">
-                <h2>Meet The Cats</h2>
-            <div class="slideshow-container" style="width:300px;height:300px"> 
+  <nav class="main-nav">
+    <a href="index.html">Home</a>
+    <a href="book.html">Meet Your Perfect Cat</a>
+    <a href="game.html">Game Center</a>
+    <a href="menu.html">Menu</a>
+    <a href="merch.html">Merch</a>
+  </nav>
 
-            <div class="mySlides fade">
-            <img src="img/cat-1.png" style="width:100%;max-width: 300px;max-height: 300px">
-            </div>
+  <a href="index.html#auth-section" class="btn btn-outline login-top">Login</a>
+</header>
 
-            <div class="mySlides fade">
-            <img src="img/cat-2.png" style="width:100%;max-width: 300px;max-height: 300px;">
-            </div>
+<main id="main-content">
 
-            <div class="mySlides fade">
-            <img src="img/cat-3.png" style="width:100%;max-width: 300px;max-height: 300px;">
-            </div>
+<section class="page-hero">
+    <h2>Meet Our Cats</h2>
 
-            <div class="mySlides fade">
-            <img src="img/cat-4.png" style="width:100%;max-width: 300px;max-height: 300px;">
-            </div>
+    <!-- SLIDESHOW (unchanged styling) -->
+    <div class="slideshow-container">
+        <div class="mySlides fade"><img src="img/cat-1.png" style="height:10rem; width: 10rem;"></div>
+        <div class="mySlides fade"><img src="img/cat-2.png" style="height:10rem; width: 10rem;"></div>
+        <div class="mySlides fade"><img src="img/cat-3.png" style="height:10rem; width: 10rem;"></div>
+        <div class="mySlides fade"><img src="img/cat-4.png" style="height:10rem; width: 10rem;"></div>
+    </div>
+</section>
 
-            <div class="mySlides fade">
-            <img src="img/cat-5.png" style="width:100%;max-width: 300px;max-height: 300px;">
-            </div>
+<section class="auth-section">
+<h2 class="section-title">Book a Visit</h2>
 
-            <div style="text-align:center">
-                <span class="dot" onclick="currentSlide(1)"></span>
-                <span class="dot" onclick="currentSlide(2)"></span>
-                <span class="dot" onclick="currentSlide(3)"></span>
-            </div>
-            </div>
-            </section>
-            <section class="auth-forms">
-                <form class="auth-form" action="book.php" method="post">
-                        <h3 class="hero-title" style="text-align: center">Book a time with your purrfect companion!</h2>
-                        <p style="text-align: center">Our cats are ready to find their forever homes! Request a reservation at Meowdani Cat Cafe to come meet one of our cats!<br><i>Note: Meowdani Cat Cafe is still in beta and cannot process multiple bookings under the same account at this time.</i></p>
-                        <br>
-                        <p id="current-date" style="text-align: center"></p>
+<div class="auth-forms">
 
-                        <label for="reg-name">Full Name</label>
-                        <input type="text" id="reg-name" name="reg-name" required>
+<form class="auth-form" method="post" action="book.php">
 
-                        <label for="reg-email">Email</label>
-                        <input type="email" id="reg-email" name="reg-email" required>
+<label>Name</label>
+<input type="text" name="name" required>
 
-                        <label for="date-time-select">Date and time:</label>
-                        <select id="date-time" name="date-time"></select>
+<label>Email</label>
+<input type="email" name="email" required>
 
-                        <label for="cat-name">What cat would you like to meet? If you want to meet multiple, hold down the the Ctrl (windows) / Command (Mac) button on your device.</label>
-                        <select id="cats" name="cats" size="8" multiple>
-                              <option value="1">Mittens</option>
-                              <option value="1">Sadie</option>
-                              <option value="1">Arthur</option>
-                              <option value="1">Lancelot</option>
-                              <option value="1">Dolly</option>
-                              <option value="1">Henrietta</option>
-                              <option value="1">Joel</option>
-                              <option value="1">Sana</option selected>
-                        </select>
-                        <button type="submit" class="btn btn-outline form-btn">Submit Reservation Request</button>
-            </form>
-            <div>
-                   <div class="receipt" id="receipt" style=" background-color: var(--white);border: 3px solid var(--med-pink); padding: 5px">
+<label>Date & Time</label>
+<select name="date-time" id="date-time" required></select>
 
-                    <div class="cat total line"><strong>Appointment total: </strong><strong id="final">$<span id="base-cost">15.00</span> + <span id=cat-total>1</span> cats x $5</strong></div>
-                    <div class="cat total line"><strong>Processing fees: </strong><strong id="final">$<span id="fees">2.50</span></strong></div>
-                    <div class="totals line"><strong>Final total: </strong><strong id="final">$<span id="final-cost">17.00</span></strong></div>
-                    </div>
-                    <div style="align-items: center;">
-                    </div>
-                    </div>
-            </div>
-            </section>
-        </main>
+<label>Select Cats ($5 each)</label>
 
-        <footer class="site-footer">
-            <p>Hours: Every day 10am - 7pm. Late appointments available upon request.</p>
-            <p>123 W 4th Street New York, NY 12345</p>
-            <br>
-            <p><a href=book.html> Book Now</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=game.html>Play The Game</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=menu.html>View Our Menu</a></p>
-            <br>
-            <p>© 2025 Meowdani Cat Cafe. Made with love and cat hair.</p>
-        </footer>
-    </body>
+<label><input type="checkbox" name="cats[]" value="Mittens"> Mittens</label>
+<label><input type="checkbox" name="cats[]" value="Sadie"> Sadie</label>
+<label><input type="checkbox" name="cats[]" value="Arthur"> Arthur</label>
+<label><input type="checkbox" name="cats[]" value="Lancelot"> Lancelot</label>
+<label><input type="checkbox" name="cats[]" value="Dolly"> Dolly</label>
 
-  <script src="book.js"></script>
+<input type="hidden" name="total" id="totalInput">
 
+<p><strong>Total: $<span id="totalDisplay">17.50</span></strong></p>
+
+<button class="btn btn-outline form-btn" type="submit">
+    Submit Booking
+</button>
+
+</form>
+
+</div>
+</section>
+
+</main>
+
+<script src="book.js"></script>
+</body>
 </html>
