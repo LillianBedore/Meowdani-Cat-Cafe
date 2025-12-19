@@ -73,26 +73,32 @@ const checkboxes = document.querySelectorAll('input[name="cats[]"]');
 const totalDisplay = document.getElementById("totalDisplay");
 const totalInput = document.getElementById("totalInput");
 
+//force price to reset to 0.00 when page loads
+checkboxes.forEach(cb => cb.checked = false);
+totalDisplay.textContent = "0.00";
+totalInput.value = "0.00";
+
 function updateTotal() {
     let count = document.querySelectorAll('input[name="cats[]"]:checked').length;
-    let total = BASE + (count * CAT_PRICE) + FEE;
+
+    let total = 0;
+    if (count > 0) {
+        total = BASE + (count * CAT_PRICE) + FEE;
+    }
+
     totalDisplay.textContent = total.toFixed(2);
     totalInput.value = total.toFixed(2);
 }
 
 checkboxes.forEach(cb => cb.addEventListener("change", updateTotal));
-updateTotal();
- 
-  // function calculateReceipt() {
-    //const selected = Array.from(selectCats.selectedOptions);
-    // }
-
-   // const multiplied = subtotal * 5;
-    // const finalTotal = STARTING + multiplied;
-
-    // Update UI
-   // subtotalEl.textContent = fmt(subtotal);
-   // multipliedEl.textContent = fmt(multiplied);
-    // finalEl.textContent = fmt(finalTotal);
 
 
+/* Prevent form submission if total is $0.00 */
+const form = document.querySelector("form");
+
+form.addEventListener("submit", function (e) {
+    if (parseFloat(totalInput.value) === 0) {
+        e.preventDefault();
+        alert("Please select at least one cat before booking.");
+    }
+});
