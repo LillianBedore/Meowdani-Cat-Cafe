@@ -35,7 +35,7 @@
 <section class="page-hero">
     <h2>Meet Our Cats</h2>
 
-    <!-- SLIDESHOW (unchanged styling) -->
+    <!-- slideshow-->
     <div class="slideshow-container">
         <div class="mySlides fade"><img src="img/cat-1.png" style="height:10rem; width: 10rem;"></div>
         <div class="mySlides fade"><img src="img/cat-2.png" style="height:10rem; width: 10rem;"></div>
@@ -49,6 +49,7 @@
 
 <div class="auth-forms">
 
+<!-- form to book slot w cats (AKA our vers of shopping cart -->
 <form class="auth-form" method="post" action="book.php">
 
 <label>Name</label>
@@ -66,11 +67,10 @@
 <label><input type="checkbox" name="cats[]" value="Sadie"> Sadie</label>
 <label><input type="checkbox" name="cats[]" value="Arthur"> Arthur</label>
 <label><input type="checkbox" name="cats[]" value="Lancelot"> Lancelot</label>
-<label><input type="checkbox" name="cats[]" value="Dolly"> Dolly</label>
+<label><input type="checkbox" name="cats[]" value="Dolly">Dolly</label>
 
-<input type="hidden" name="total" id="totalInput">
-
-<p><strong>Total: $<span id="totalDisplay">17.50</span></strong></p>
+<input type="hidden" name="total" id="totalInput" value="0.00">
+<p><strong>Total: $<span id="totalDisplay">0.00</span></strong></p>
 
 <button class="btn btn-outline form-btn" type="submit">
     Submit Booking
