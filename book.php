@@ -147,6 +147,7 @@ $db->close();
 <p><strong>Date & Time:</strong> <?= htmlspecialchars($datetime) ?></p>
 <p><strong>Cats Booked:</strong> <?= htmlspecialchars($catList) ?></p>
 <p><strong>Total Charged:</strong> $<?= htmlspecialchars($total) ?></p>
+<a href="index.html" class="btn btn-outline" style="margin-top: 1rem;">Return to Home</a>
 
 </section>
 </main>
