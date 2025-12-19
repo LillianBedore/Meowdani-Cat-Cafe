@@ -48,7 +48,7 @@ if (!$name || !$email || !$datetime) { //if user didnt fill smthn out
 $catList = empty($cats) ? "None" : implode(", ", $cats); //check if u booked w a cat, append strings if u booked w multiple
 
 try {
-    $path = "/home/dd3552/databases";
+    $path = "/home/dd3552/databases";//CHANGE TO YOUR OWN NETID for i6 Y'ALL 
     $db = new SQLite3($path . "/customers.db");
 } catch (Exception $e) {
     exit("<p>Database connection failed.</p>");
