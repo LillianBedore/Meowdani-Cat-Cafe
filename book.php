@@ -60,54 +60,52 @@ CREATE TABLE IF NOT EXISTS accounts (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT,
     email TEXT UNIQUE,
-    password TEXT
+    password TEXT,
+    booking_datetime TEXT,
+    booked_cats TEXT,
+    total_paid REAL
 )
 ");
 
-/* add booking column to user account if doesnt exist alr */
-$existingCols = [];
-$cols = $db->query("PRAGMA table_info(accounts)");
-while ($row = $cols->fetchArray(SQLITE3_ASSOC)) {
-    $existingCols[] = $row['name'];
-}
-
-if (!in_array('booking_datetime', $existingCols)) {
-    $db->exec("ALTER TABLE accounts ADD COLUMN booking_datetime TEXT");
-}
-
-if (!in_array('booked_cats', $existingCols)) {
-    $db->exec("ALTER TABLE accounts ADD COLUMN booked_cats TEXT");
-}
-
-if (!in_array('total_paid', $existingCols)) {
-    $db->exec("ALTER TABLE accounts ADD COLUMN total_paid REAL");
-}
-
-/* check if slot alr booked*/
-$checkTime = $db->prepare("
-    SELECT id FROM accounts
-    WHERE booking_datetime = :dt
-");
-$checkTime->bindValue(":dt", $datetime, SQLITE3_TEXT);
-
-if ($checkTime->execute()->fetchArray()) {
-    exit("<p><strong>This time slot is already booked.</strong></p>");
-}
-
-/* check if user alr booked once */
+/* ================================
+   RULE 1: user can only book once
+================================ */
 $checkUser = $db->prepare("
-    SELECT id, booking_datetime FROM accounts
+    SELECT 1 FROM accounts
     WHERE email = :email
+    AND booking_datetime IS NOT NULL
 ");
 $checkUser->bindValue(":email", $email, SQLITE3_TEXT);
-$user = $checkUser->execute()->fetchArray(SQLITE3_ASSOC);
 
-if ($user && $user['booking_datetime']) {
+if ($checkUser->execute()->fetchArray()) {
     exit("<p><strong>You have already booked a visit.</strong></p>");
 }
 
+/* ==========================================
+   RULE 2: no two people can book same cat/time
+========================================== */
+foreach ($cats as $cat) {
+    $checkCat = $db->prepare("
+        SELECT 1 FROM accounts
+        WHERE booking_datetime = :dt
+        AND booked_cats LIKE :cat
+    ");
+    $checkCat->bindValue(":dt", $datetime, SQLITE3_TEXT);
+    $checkCat->bindValue(":cat", "%" . $cat . "%", SQLITE3_TEXT);
+
+    if ($checkCat->execute()->fetchArray()) {
+        exit("<p><strong>$cat is already booked for this time.</strong></p>");
+    }
+}
+
 /*update user or create a new one*/
-if ($user) {
+$existing = $db->prepare("
+    SELECT id FROM accounts WHERE email = :email
+");
+$existing->bindValue(":email", $email, SQLITE3_TEXT);
+$exists = $existing->execute()->fetchArray();
+
+if ($exists) {
 
     $update = $db->prepare("
         UPDATE accounts
@@ -143,7 +141,7 @@ $db->close();
 ?>
 
 <!-- Receipt Output -->
-<p><strong>Booking Confirmed!</strong></p>
+<h1><strong>Booking Confirmed!</strong></h1>
 <p><strong>Name:</strong> <?= htmlspecialchars($name) ?></p>
 <p><strong>Email:</strong> <?= htmlspecialchars($email) ?></p>
 <p><strong>Date & Time:</strong> <?= htmlspecialchars($datetime) ?></p>
@@ -151,5 +149,6 @@ $db->close();
 <p><strong>Total Charged:</strong> $<?= htmlspecialchars($total) ?></p>
 
 </section>
+</main>
 </body>
 </html>
